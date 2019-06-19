@@ -22,7 +22,7 @@ program
   .description('CLI Node.js Appl Builder [Typescript/Javascript]')
 
 // error on unknown commands
-program.on('command:*', function() {
+program.on('command:*', () => {
   console.error(
     'Invalid command: %s\nSee --help for a list of available commands.',
     program.args.join(' ')
