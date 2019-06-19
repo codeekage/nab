@@ -15,6 +15,7 @@ const question = [
   },
 ]
 
+//cli details
 program
   .version('0.0.1')
   .name('nab')
@@ -29,6 +30,7 @@ program.on('command:*', function() {
   process.exit(1)
 })
 
+//CMD: add new project command
 program
   .command('new <app-name>')
   .alias('n')
@@ -46,37 +48,15 @@ program
           break
       }
     })
-  }).on('--help', () => {
+  })
+  .on('--help', () => {
     console.log('')
     console.log('Examples:')
     console.log('  $ nab new my-awesome-project')
     console.log('  $ nab n my-awesome-project')
   })
 
-program
-  .command('start [operation]')
-  .alias('s')
-  .description('run setup commands for all envs')
-  .option('-t, --typescript [operation]', 'Which setup mode to use')
-  .option('-j, --javascript [operation]', 'Which setup mode to use')
-  .action((operation, options) => {
-    const { typescript, javascript } = options
-    if (javascript) {
-      jsStartCommand(operation, javascript)
-      return
-    }
-    if (typescript) {
-      tscStartCommand(operation, typescript)
-      return
-    }
-  })
-  .on('--help', () => {
-    console.log('')
-    console.log('Examples:')
-    console.log('  $ nab start --tsc server')
-    console.log('  $ nab start --node server')
-  })
-
+//CMD: create new project command
 program
   .command('create [app-name]')
   .alias('c')
@@ -113,4 +93,30 @@ program
     console.log('  $ nab create --typescript my-awesome-project')
     console.log('  $ nab create -t my-awesome-project')
   })
+
+//CMD: start project
+program
+  .command('start [operation]')
+  .alias('s')
+  .description('run setup commands for all envs')
+  .option('-t, --typescript [operation]', 'Which setup mode to use')
+  .option('-j, --javascript [operation]', 'Which setup mode to use')
+  .action((operation, options) => {
+    const { typescript, javascript } = options
+    if (javascript) {
+      jsStartCommand(operation, javascript)
+      return
+    }
+    if (typescript) {
+      tscStartCommand(operation, typescript)
+      return
+    }
+  })
+  .on('--help', () => {
+    console.log('')
+    console.log('Examples:')
+    console.log('  $ nab start --tsc server')
+    console.log('  $ nab start --node server')
+  })
+
 program.parse(process.argv)
