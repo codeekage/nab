@@ -12,12 +12,12 @@ export default class ${filename}Controller {
   }
 }`
 
-const model = (filename, modelName) => `
+const model = (filename) => `
 import Model, { Schema } from '../core/app.model'
 export default class ${filename}Model extends Model {
   constructor() {
     super({
-      name: '${modelName}',
+      name: '${filename.toLowerCase()}',
       schema: new Schema({
         name: {
           type: String,
@@ -52,7 +52,7 @@ exports.createModel = (root, filename) => {
     const modelName = filename.charAt(0).toUpperCase() + filename.slice(1)
     fs.writeFileSync(
       `${root}/src/model/${modelName}.model.ts`,
-      `${model(modelName, filename)} `,
+      `${model(modelName)} `,
       {
         encoding: 'utf8',
       }
