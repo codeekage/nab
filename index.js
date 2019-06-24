@@ -2,7 +2,12 @@
 const commander = require('commander')
 const { tscStartCommand, jsStartCommand } = require('./util/operations')
 const { prompt } = require('inquirer')
-const { createNewJavaScriptApp, createNewTypeScriptApp } = require('./module')
+const {
+  createNewJavaScriptApp,
+  createNewTypeScriptApp,
+  createController,
+  createModel
+} = require('./module')
 //commander object
 const program = new commander.Command()
 
@@ -109,6 +114,30 @@ program
     }
     if (typescript) {
       tscStartCommand(operation, typescript)
+      return
+    }
+  })
+  .on('--help', () => {
+    console.log('')
+    console.log('Examples:')
+    console.log('  $ nab start --tsc server')
+    console.log('  $ nab start --node server')
+  })
+
+program
+  .command('add <operation>')
+  .alias('s')
+  .description('run setup commands for all envs')
+  .option('-t, --typescript [operation]', 'Which setup mode to use')
+  .action((operation, options) => {
+    const { typescript } = options
+    if (typescript && operation === 'controller') {
+      createController('./', typescript)
+      return
+    }
+
+    if (typescript && operation === 'model') {
+      createModel('./', typescript)
       return
     }
   })

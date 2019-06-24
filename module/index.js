@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const modulePath = path.join(__dirname + '/lib')
 const { createNewApp } = require('./scripts')
+const { createController, createModel } = require('./modify')
+
 const createNewJavaScriptApp = async root => {
   createNewApp(`${modulePath}/javascript`, root)
 }
@@ -10,4 +12,4 @@ const createNewTypeScriptApp = root => {
   createNewApp(`${modulePath}/typescript`, root)
 }
 
-module.exports = { createNewJavaScriptApp, createNewTypeScriptApp }
+module.exports = { createNewJavaScriptApp, createNewTypeScriptApp, createController, createModel }
