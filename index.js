@@ -144,8 +144,8 @@ program
   .on('--help', () => {
     console.log('')
     console.log('Examples:')
-    console.log('  $ nab start --tsc server')
-    console.log('  $ nab start --node server')
+    console.log('  $ nab add model -t user')
+    console.log('  $ nab add controller -t user')
   })
 
 program.parse(process.argv)
