@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const commander = require('commander')
-const { tscStartCommand, jsStartCommand } = require('./util/operations')
+const { tscStartCommand } = require('./util/operations')
 const { prompt } = require('inquirer')
 const {
   createNewJavaScriptApp,
@@ -39,7 +39,7 @@ program.on('command:*', () => {
 program
   .command('new <app-name>')
   .alias('n')
-  .description('create a new nodejs application')
+  .description('create a new typescript nodejs application')
   .action((appName, options) => {
     prompt(question).then(answers => {
       switch (answers.appType) {
@@ -59,13 +59,14 @@ program
     console.log('Examples:')
     console.log('  $ nab new my-awesome-project')
     console.log('  $ nab n my-awesome-project')
+    console.log(' or See: $ nab create --help')
   })
 
 //CMD: create new project command
 program
   .command('create [app-name]')
   .alias('c')
-  .description('run setup commands for all envs')
+  .description('create a new typescript nodejs application')
   .option('-t, --typescript [app-name]', 'Which setup mode to use')
   .option('-j, --javascript [app-name]', 'Which setup mode to use')
   .action((operation, options) => {
@@ -105,13 +106,8 @@ program
   .alias('s')
   .description('run setup commands for all envs')
   .option('-t, --typescript [operation]', 'Which setup mode to use')
-  .option('-j, --javascript [operation]', 'Which setup mode to use')
   .action((operation, options) => {
-    const { typescript, javascript } = options
-    if (javascript) {
-      jsStartCommand(operation, javascript)
-      return
-    }
+    const { typescript } = options
     if (typescript) {
       tscStartCommand(operation, typescript)
       return

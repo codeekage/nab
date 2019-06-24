@@ -1,21 +1,28 @@
 {
   "name": "@codeekage/nab",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "main": "index.js",
+  "description": "Node.js Typescript Scaffolding!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeekage/nab.git"
+  },
+  "author": "codeekage",
   "preferGlobal": true,
   "bin": {
     "nab": "index.js"
   },
-  "repository": "https://github.com/codeekage/nab",
   "dependencies": {
     "colors": "^1.3.3",
     "commander": "^2.20.0",
     "inquirer": "^6.3.1",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.2"
   },
   "license": "MIT",
   "files": [
     "lib/",
-    "module/"
+    "module/",
+    "util/"
   ]
 }
