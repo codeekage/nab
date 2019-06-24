@@ -11,7 +11,7 @@ const app: IConfig = new AppConfig({
   server: express(),
   message: 'Application Running!',
   logger: true,
-  mongodb: process.env.MONGO_URI || 'mongodb://localhost:27017/olive',
+  //mongodb: process.env.MONGO_URI || 'mongodb://localhost:27017/olive',
 })
 app.get('/:name', new UsersController().greetUserWithName)
 app.get('/', new UsersController().greetUser)

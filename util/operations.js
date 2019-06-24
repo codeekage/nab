@@ -6,7 +6,9 @@ exports.tsDev = os => {
   switch (os.platform()) {
     case 'win32':
       exec('start cmd.exe /K tsc --watch')
-      exec('start cmd.exe /K nodemon lib')
+      setTimeout(() => {
+        exec('start cmd.exe /K nodemon lib')
+      }, 10000)
       break
     case 'darwin':
       exec(

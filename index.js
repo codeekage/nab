@@ -126,9 +126,9 @@ program
 
 program
   .command('add <operation>')
-  .alias('s')
+  .alias('a')
   .description('run setup commands for all envs')
-  .option('-t, --typescript [operation]', 'Which setup mode to use')
+  .option('-t, --typescript <filename>', 'Which setup mode to use')
   .action((operation, options) => {
     const { typescript } = options
     if (typescript && operation === 'controller') {
@@ -144,8 +144,8 @@ program
   .on('--help', () => {
     console.log('')
     console.log('Examples:')
-    console.log('  $ nab add model -t user')
-    console.log('  $ nab add controller -t user')
+    console.log('  $ nab add model -t user | nab add model --typescript user')
+    console.log('  $ nab add controller -t user | nab add controller -typesctipt user')
   })
 
 program.parse(process.argv)
