@@ -1,6 +1,19 @@
-import App from './app'
+import * as express from 'express'
+import * as dotenv from 'dotenv'
+import AppConfig, { IConfig } from './core'
+import UsersController from './controller/Users.controller'
 
-const appRunner = new App()
+//use environment varibales
+dotenv.config()
 
-console.log(appRunner.getName())
-console.log('Application gues again Running!!')
+const app: IConfig = new AppConfig({
+  port: 5000,
+  server: express(),
+  message: 'Application Running!',
+  logger: true,
+  mongodb: process.env.MONGO_URI || 'mongodb://localhost:27017/olive',
+})
+app.get('/:name', new UsersController().greetUserWithName)
+app.get('/', new UsersController().greetUser)
+
+console.log(process.env.NODE_ENV)

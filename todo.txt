@@ -1,0 +1,36 @@
+? command lines setup
+? read files
+? create files with command line
+? setup package.json
+? complete typescript files
+? set up basic express server
+? setup controllers
+? setup core.js
+? 
+
+# peerDependenices
+# normalising ports
+# setup testing 
+# setup travis
+# setup model
+
+
+
+
+controller
+model
+view
+
+
+
+ load(_route: string, ControllerReference: any) {
+    let props = new Set()
+    let currentObj = ControllerReference
+    do {
+      Object.getOwnPropertyNames(currentObj).map(item => props.add(item))
+    } while ((currentObj = Object.getPrototypeOf(currentObj)))
+
+    return [...props.keys()].filter(
+      (item: any) => typeof ControllerReference[item] === 'function'
+    )
+  }

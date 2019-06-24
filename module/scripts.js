@@ -19,21 +19,51 @@ exports.createNewApp = async (path, root) => {
         }
         //when reads are directories
         if (files.isDirectory()) {
-          const readDir = fs.readdirSync(`${path}/${files.name}`)
-          fs.mkdirSync(`${root}/${files.name}`)
-          readDir.forEach(innerFiles => {
-            const readInnerFiles = fs.readFileSync(
-              `${path}/${files.name}/${innerFiles}`
-            )
-            fs.writeFileSync(
-              `${root}/${files.name}/${innerFiles}`,
-              readInnerFiles
-            )
-            console.info(
-              colors.green('\u2714 Created'),
-              `${root}/${files.name}/${innerFiles}`
-            )
+          const readDir = fs.readdirSync(`${path}/${files.name}`, {
+            encoding: 'utf8',
+            withFileTypes: true,
           })
+          const folders = []
+          readDir.map(innerDir => {
+            if (innerDir.isFile()) {
+              fs.mkdirSync(`${root}/${files.name}`)
+              const readFile = fs.readFileSync(
+                `${path}/${files.name}/${innerDir.name}`
+              )
+              fs.writeFileSync(
+                `${root}/${files.name}/${innerDir.name}`,
+                readFile
+              )
+              console.info(
+                colors.green('\u2714 Created'),
+                `${root}/${files.name}/${innerDir.name}`
+              )
+            }
+            if (innerDir.isDirectory()) {
+              folders.push(innerDir.name)
+            }
+          })
+          if (folders.length > 0)
+            folders.map(item => {
+              fs.mkdirSync(`${root}/${files.name}/${item}`)
+              const readInnerFolders = fs.readdirSync(
+                `${path}/${files.name}/${item}`
+              )
+              readInnerFolders.map(inFile => {
+                const readInFile = fs.readFileSync(
+                  `${path}/${files.name}/${item}/${inFile}`
+                )
+                fs.writeFileSync(
+                  `${root}/${files.name}/${item}/${inFile}`,
+                  readInFile
+                )
+                console.info(
+                  colors.green('\u2714 Created'),
+                  `${root}/${files.name}/${item}/${inFile}`
+                )
+              })
+            })
+            return
         }
       })
       prompt([
@@ -63,7 +93,7 @@ exports.createNewApp = async (path, root) => {
           console.log(colors.blue('🖒 Done!'))
           process.exit(1)
         }
-    })
+      })
     })
   } catch (error) {
     console.log(error)

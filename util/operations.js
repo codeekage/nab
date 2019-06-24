@@ -2,6 +2,7 @@ const { exec } = require('child_process')
 const os = require('os')
 
 exports.tsDev = os => {
+  process.env.NODE_ENV = 'dev'
   switch (os.platform()) {
     case 'win32':
       exec('start cmd.exe /K tsc --watch')
@@ -20,6 +21,7 @@ exports.tsDev = os => {
   }
 }
 exports.tsProd = os => {
+  process.env.NODE_ENV = 'prod'
   switch (os.platform()) {
     case 'win32':
       exec('start cmd.exe /K tsc --watch')
@@ -72,7 +74,7 @@ exports.jsStartCommand = (operation, mode) => {
   }
   switch (mode) {
     case 'dev':
-    console.log('Hello JS')
+      console.log('Hello JS')
       break
     case 'prod':
       prod(os)
