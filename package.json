@@ -1,6 +1,6 @@
 {
   "name": "@codeekage/nab",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "main": "index.js",
   "description": "Node.js Typescript Scaffolding",
   "repository": {
