@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 const commander = require('commander')
 const { tscStartCommand } = require('./util/operations')
-const { prompt } = require('inquirer')
+//const { prompt } = require('inquirer')
 const {
-  createNewJavaScriptApp,
   createNewTypeScriptApp,
   createController,
   createModel
@@ -11,14 +10,14 @@ const {
 //commander object
 const program = new commander.Command()
 
-const question = [
+/* const question = [
   {
     type: 'list',
     name: 'appType',
     choices: ['Typescript', 'Javascript'],
     message: 'Select Project Type',
   },
-]
+] */
 
 //cli details
 program
@@ -36,7 +35,7 @@ program.on('command:*', () => {
 })
 
 //CMD: add new project command
-program
+/* program
   .command('new <app-name>')
   .alias('n')
   .description('create a new typescript nodejs application')
@@ -60,7 +59,7 @@ program
     console.log('  $ nab new my-awesome-project')
     console.log('  $ nab n my-awesome-project')
     console.log(' or See: $ nab create --help')
-  })
+  }) */
 
 //CMD: create new project command
 program
@@ -68,18 +67,13 @@ program
   .alias('c')
   .description('create a new typescript nodejs application')
   .option('-t, --typescript [app-name]', 'Which setup mode to use')
-  .option('-j, --javascript [app-name]', 'Which setup mode to use')
   .action((operation, options) => {
-    const { javascript, typescript } = options
+    const { typescript } = options
     if (operation !== undefined) {
       console.error(
         'Invalid command: %s\nSee --help for a list of available commands.',
         operation
       )
-      return
-    }
-    if (javascript !== undefined && javascript !== true) {
-      createNewJavaScriptApp(javascript)
       return
     }
     if (typescript !== undefined && typescript !== true) {
@@ -94,8 +88,6 @@ program
   .on('--help', () => {
     console.log('')
     console.log('Examples:')
-    console.log('  $ nab create --javascript my-awesome-project')
-    console.log('  $ nab create -j my-awesome-project')
     console.log('  $ nab create --typescript my-awesome-project')
     console.log('  $ nab create -t my-awesome-project')
   })
@@ -104,8 +96,8 @@ program
 program
   .command('start [operation]')
   .alias('s')
-  .description('run setup commands for all envs')
-  .option('-t, --typescript [operation]', 'Which setup mode to use')
+  .description('start dev server')
+  .option('-t, --typescript [operation]', 'typescript dev server')
   .action((operation, options) => {
     const { typescript } = options
     if (typescript) {
@@ -116,14 +108,13 @@ program
   .on('--help', () => {
     console.log('')
     console.log('Examples:')
-    console.log('  $ nab start --tsc server')
-    console.log('  $ nab start --node server')
+    console.log('  $ nab start --typescript dev')
   })
 
 program
   .command('add <operation>')
   .alias('a')
-  .description('run setup commands for all envs')
+  .description('add either a controller or a model to your web api')
   .option('-t, --typescript <filename>', 'Which setup mode to use')
   .action((operation, options) => {
     const { typescript } = options
@@ -140,8 +131,8 @@ program
   .on('--help', () => {
     console.log('')
     console.log('Examples:')
-    console.log('  $ nab add model -t user | nab add model --typescript user')
-    console.log('  $ nab add controller -t user | nab add controller -typesctipt user')
+    console.log('  $ nab add model -t <model-name> | nab add model --typescript <model-name>')
+    console.log('  $ nab add controller -t <controller> | nab add controller -typesctipt <controller>')
   })
 
 program.parse(process.argv)

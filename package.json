@@ -2,7 +2,7 @@
   "name": "@codeekage/nab",
   "version": "1.2.4",
   "main": "index.js",
-  "description": "Node.js Typescript Scaffolding!",
+  "description": "Node.js Typescript Scaffolding",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codeekage/nab.git"
